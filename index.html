@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Archivo',system-ui,-apple-system,sans-serif;background:#ffffff;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:#15171a;color:#fff}
+@keyframes scrollCue{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(7px);opacity:1}}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#101214">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#101214"/>
+    <text x="600" y="430" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="800" font-size="160" letter-spacing="8" fill="#ffffff">DA</text>
+    <text x="600" y="510" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="600" font-size="32" letter-spacing="16" fill="#9bbfa8">DOMAINE AUBERT</text>
+  </svg>
+</template>
+<div style="background:#ffffff;color:#15171a;min-height:100vh">
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.92);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid #e8e6e1">
+    <div style="max-width:1280px;margin:0 auto;padding:0 clamp(14px,4vw,48px);min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:clamp(12px,2vw,30px)">
+      <button onClick="{{ goAccueil }}" style="appearance:none;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:0">
+        <span style="font-size:18px;font-weight:800;letter-spacing:0.02em;color:#15171a;line-height:1">DOMAINE AUBERT</span>
+        <span style="font-size:9.5px;font-weight:600;letter-spacing:0.34em;color:#2f5d46">MEURSAULT · 1843</span>
+      </button>
+      <nav style="display:flex;align-items:center;gap:clamp(13px,1.8vw,30px);overflow-x:auto;max-width:100%">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4">
+          <button onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}</button>
+        </sc-for>
+      </nav>
+      <button onClick="{{ toggleCart }}" style="appearance:none;background:none;border:1px solid #ddd9d1;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:8px;padding:8px 14px;font-family:inherit">
+        <span style="font-size:11.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#15171a">Panier</span>
+        <span style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#15171a;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ cartCount }}</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ ACCUEIL ============ -->
+  <sc-if value="{{ isAccueil }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Accueil">
+
+    <section style="position:relative;height:calc(100vh - 72px);min-height:560px;background:#101214;overflow:hidden">
+      <video ref="{{ videoRef }}" autoplay muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <source src="https://res.cloudinary.com/daluu9z8z/video/upload/v1782136785/magnific_video-upscale_62l28TbiJO_bj4jhg.mp4" type="video/mp4">
+      </video>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,18,20,0.34) 0%,rgba(16,18,20,0.04) 30%,rgba(16,18,20,0.12) 62%,rgba(16,18,20,0.74) 100%)"></div>
+
+      <div style="{{ heroNameStyle }}">
+        <div style="text-align:center;padding:0 24px">
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.46em;color:rgba(255,255,255,0.82);text-transform:uppercase;margin-bottom:22px">Meursault · Bourgogne</div>
+          <h1 style="margin:0;font-size:clamp(46px,9vw,128px);font-weight:800;line-height:0.9;letter-spacing:-0.025em;color:#fff;text-shadow:0 2px 40px rgba(0,0,0,0.35)">DOMAINE<br>AUBERT</h1>
+          <div style="width:54px;height:2px;background:rgba(255,255,255,0.65);margin:30px auto 0"></div>
+          <div style="font-size:13px;font-weight:500;letter-spacing:0.28em;color:rgba(255,255,255,0.78);text-transform:uppercase;margin-top:24px">De père en fille · depuis 1843</div>
+          <img src="uploads/logo_s.png" alt="Blason Domaine Aubert" style="width:96px;height:auto;display:block;margin:30px auto 0;opacity:0.95;filter:drop-shadow(0 2px 16px rgba(0,0,0,0.45))">
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#ffffff">
+      <div style="max-width:1100px;margin:0 auto;padding:120px 48px;text-align:center">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:#15171a;text-transform:uppercase;margin-bottom:30px">Le Domaine</div>
+        <p style="margin:0;font-size:clamp(26px,3.4vw,42px);font-weight:500;line-height:1.32;letter-spacing:-0.015em;color:#15171a;text-wrap:balance">Trois générations sur les coteaux de Meursault. Des vins de Chardonnay et de Pinot Noir, vinifiés avec patience, parcelle par parcelle — et transmis, aujourd'hui, de père en fille.</p>
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:48px">
+          <button onClick="{{ goBoutique }}" style="appearance:none;border:none;background:#15171a;color:#fff;padding:15px 30px;border-radius:2px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Découvrir nos vins</button>
+          <button onClick="{{ goHistoire }}" style="appearance:none;border:1px solid #15171a;background:transparent;color:#15171a;padding:15px 30px;border-radius:2px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#15171a;color:#fff">Notre histoire</button>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:#f5f4f1;border-top:1px solid #e8e6e1;border-bottom:1px solid #e8e6e1">
+      <div style="max-width:1280px;margin:0 auto;padding:64px clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:24px">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="text-align:center">
+            <div style="font-size:clamp(34px,4.4vw,56px);font-weight:800;letter-spacing:-0.02em;color:#15171a;line-height:1">{{ s.value }}</div>
+            <div style="font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#7c7d80;margin-top:12px">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1280px;margin:0 auto;padding:120px 48px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:46px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:#15171a;text-transform:uppercase;margin-bottom:16px">La sélection</div>
+          <h2 style="margin:0;font-size:clamp(32px,4.4vw,52px);font-weight:800;letter-spacing:-0.02em;line-height:1">Cuvées du moment</h2>
+        </div>
+        <button onClick="{{ goBoutique }}" style="appearance:none;background:none;border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#15171a;border-bottom:2px solid #15171a;padding-bottom:4px">Toute la boutique →</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px">
+        <sc-for list="{{ featured }}" as="w" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;border:1px solid #e8e6e1;border-radius:20px;overflow:hidden;background:#fff">
+            <sc-if value="{{ w.hasImage }}" hint-placeholder-val="{{ false }}">
+              <div style="height:300px;background:#ffffff;display:flex;align-items:center;justify-content:center;padding:24px 24px 0">
+                <div style="{{ w.imageStyleSmall }}"></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ w.noImage }}" hint-placeholder-val="{{ true }}">
+            <div style="height:300px;background:linear-gradient(140deg,#f3f2ee,#e6e4de);display:flex;align-items:center;justify-content:center;padding:24px">
+              <div style="background:#fbfaf7;border:1px solid #e6e3dc;border-radius:2px;padding:16px 12px;width:100%;max-width:150px;text-align:center;box-shadow:0 10px 26px rgba(0,0,0,0.1)">
+                <div style="font-size:9px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#15171a">Domaine Aubert</div>
+                <div style="width:22px;height:1px;background:#cbc8c0;margin:8px auto"></div>
+                <div style="font-size:13px;font-weight:600;color:#15171a;line-height:1.2">{{ w.appellation }}</div>
+                <div style="font-size:22px;font-weight:800;color:#15171a;margin-top:4px">{{ w.vintageLabel }}</div>
+              </div>
+            </div>
+            </sc-if>
+            <div style="padding:22px 22px 24px;display:flex;flex-direction:column;gap:12px;flex:1">
+              <div style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#7c7d80">{{ w.descriptor }}</div>
+              <h3 style="margin:0;font-size:19px;font-weight:700;letter-spacing:-0.01em;line-height:1.2">{{ w.name }}</h3>
+              <p style="margin:0;font-size:14px;line-height:1.55;color:#7c7d80;flex:1">{{ w.note }}</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+                <span style="font-size:20px;font-weight:800;letter-spacing:-0.01em">{{ w.priceLabel }}</span>
+                <button onClick="{{ w.onAdd }}" style="appearance:none;border:1px solid #15171a;background:#15171a;color:#fff;padding:10px 16px;border-radius:2px;font-family:inherit;font-size:11.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42;border-color:#3a3d42">Ajouter</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#15171a;color:#fff">
+      <div style="max-width:1280px;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));align-items:stretch;gap:0">
+        <div style="padding:120px 56px 120px 0;display:flex;flex-direction:column;justify-content:center">
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-bottom:24px">De père en fille</div>
+          <h2 style="margin:0 0 24px;font-size:clamp(30px,3.6vw,44px);font-weight:800;letter-spacing:-0.02em;line-height:1.1">Une tradition familiale qui se réinvente à chaque millésime.</h2>
+          <p style="margin:0 0 32px;font-size:16px;line-height:1.7;color:rgba(255,255,255,0.72);max-width:460px">En 2012, Camille et Louise Aubert reprennent le domaine des mains de leur père Bernard. Troisième génération, les deux sœurs prolongent un savoir-faire commencé en 1843, parcelle après parcelle.</p>
+          <button onClick="{{ goHistoire }}" style="align-self:flex-start;appearance:none;border:1px solid rgba(255,255,255,0.5);background:transparent;color:#fff;padding:14px 28px;border-radius:2px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#fff;color:#15171a">Lire l'histoire du domaine</button>
+        </div>
+        <div style="background-image:linear-gradient(to top,rgba(16,18,20,0.78),rgba(16,18,20,0) 42%),url('uploads/gem_pere_s.png');background-size:cover;background-position:center;min-height:560px;position:relative;display:flex;align-items:flex-end;padding:30px">
+          <div style="color:rgba(255,255,255,0.96)">
+            <div style="font-size:16px;font-weight:700">Camille &amp; Louise Aubert</div>
+            <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:3px">Vigneronnes · 3ᵉ génération, avec leur père Bernard</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:880px;margin:0 auto;padding:120px 48px;text-align:center">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:#15171a;text-transform:uppercase;margin-bottom:22px">Visiter le domaine</div>
+      <h2 style="margin:0 0 18px;font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-0.02em;line-height:1.05">Dégustation sur rendez-vous</h2>
+      <p style="margin:0 auto 36px;font-size:17px;line-height:1.7;color:#7c7d80;max-width:560px">Du mardi au samedi, dans nos caves voûtées de Meursault. Une heure pour parcourir les millésimes en compagnie de Camille.</p>
+      <button onClick="{{ goContact }}" style="appearance:none;border:none;background:#15171a;color:#fff;padding:15px 34px;border-radius:2px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Réserver une visite</button>
+    </section>
+
+  </div>
+  </sc-if>
+
+  <!-- ============ HISTOIRE ============ -->
+  <sc-if value="{{ isHistoire }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Histoire">
+    <section style="position:relative;height:64vh;min-height:480px;background-image:linear-gradient(180deg,rgba(16,18,20,0.34),rgba(16,18,20,0.05) 32%,rgba(16,18,20,0.2) 60%,rgba(16,18,20,0.82)),url('uploads/hist_hero_s.png');background-size:cover;background-position:center 38%">
+      <div style="max-width:1000px;margin:0 auto;height:100%;padding:0 48px 56px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:18px">Depuis 1843 · Meursault</div>
+        <h1 style="margin:0;font-size:clamp(40px,7vw,84px);font-weight:800;letter-spacing:-0.025em;line-height:0.96;color:#fff;text-shadow:0 2px 36px rgba(0,0,0,0.4)">L'histoire du domaine</h1>
+      </div>
+    </section>
+    <section style="background:#f5f4f1;border-bottom:1px solid #e8e6e1">
+      <div style="max-width:1000px;margin:0 auto;padding:72px 48px;text-align:center">
+        <p style="margin:0 auto;font-size:18px;line-height:1.7;color:#6b6c70;max-width:600px">Trois générations d'une même famille se sont succédé sur les mêmes coteaux. Une histoire de patience, de gel surmonté, et d'une transmission devenue, au fil du temps, une affaire de père en fille.</p>
+      </div>
+    </section>
+
+    <section style="max-width:840px;margin:0 auto;padding:96px 48px 110px">
+      <div style="position:relative">
+        <div style="position:absolute;left:88px;top:8px;bottom:8px;width:1px;background:#e2dfd8"></div>
+        <sc-for list="{{ generations }}" as="g" hint-placeholder-count="6">
+          <div data-reveal="{{ g.index }}" style="{{ g.style }}">
+            <div style="text-align:right;font-size:20px;font-weight:800;letter-spacing:-0.01em;color:#15171a;padding-top:1px">{{ g.year }}</div>
+            <div style="position:relative;padding-left:30px">
+              <span style="position:absolute;left:-7px;top:5px;width:13px;height:13px;border-radius:999px;background:#fff;border:3px solid #15171a"></span>
+              <h3 style="margin:0 0 10px;font-size:21px;font-weight:700;letter-spacing:-0.01em">{{ g.title }}</h3>
+              <p style="margin:0;font-size:15.5px;line-height:1.65;color:#6b6c70;max-width:540px">{{ g.text }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#15171a;color:#fff">
+      <div style="max-width:920px;margin:0 auto;padding:110px 48px;text-align:center">
+        <div style="font-size:46px;color:rgba(255,255,255,0.5);line-height:0.6;font-weight:800">“</div>
+        <p style="margin:18px 0 28px;font-size:clamp(24px,3.2vw,38px);font-weight:600;line-height:1.32;letter-spacing:-0.015em;text-wrap:balance">Héritage de trois générations de vignerons et de vigneronnes, le domaine perpétue un savoir-faire où la terre, le temps et la main humaine ne font qu'un.</p>
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.6)">Domaine Aubert · Meursault</div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ BOUTIQUE ============ -->
+  <sc-if value="{{ isBoutique }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Boutique">
+    <section style="position:relative;height:58vh;min-height:440px;background-image:linear-gradient(90deg,rgba(16,18,20,0.72),rgba(16,18,20,0.28) 52%,rgba(16,18,20,0) 78%),url('uploads/gem_boutique_s.png');background-repeat:no-repeat,no-repeat;background-size:cover,118% auto;background-position:center,left center">
+      <div style="max-width:1280px;margin:0 auto;height:100%;padding:0 48px 52px;display:flex;flex-direction:column;justify-content:flex-end">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:rgba(255,255,255,0.78);text-transform:uppercase;margin-bottom:18px">La boutique</div>
+        <h1 style="margin:0;font-size:clamp(38px,6vw,72px);font-weight:800;letter-spacing:-0.025em;line-height:0.98;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,0.35)">Nos vins</h1>
+        <p style="margin:14px 0 0;font-size:16px;line-height:1.6;color:rgba(255,255,255,0.82);max-width:440px">Huit cuvées de Meursault et de la Côte de Beaune, élevées parcelle par parcelle.</p>
+      </div>
+    </section>
+    <section style="border-bottom:1px solid #e8e6e1;background:#fff;position:sticky;top:72px;z-index:30">
+      <div style="max-width:1280px;margin:0 auto;padding:22px 48px">
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+            <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto;padding:24px 48px 80px">
+      <sc-for list="{{ winesView }}" as="w" hint-placeholder-count="6">
+        <div style="{{ w.rowStyle }}">
+          <div style="flex:1 1 300px;max-width:100%;min-width:0;display:flex;justify-content:center;align-items:flex-end;padding:20px 0">
+            <sc-if value="{{ w.hasImage }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ w.imageStyle }}"></div>
+            </sc-if>
+            <sc-if value="{{ w.noImage }}" hint-placeholder-val="{{ true }}">
+            <div style="position:relative;display:flex;flex-direction:column;align-items:center">
+              <div style="{{ w.capStyle }}"></div>
+              <div style="{{ w.neckStyle }}"></div>
+              <div style="{{ w.bodyStyle }};transform:scale(1.18);transform-origin:bottom center">
+                <div style="position:absolute;top:0;left:26px;width:13px;height:100%;background:linear-gradient(rgba(255,255,255,0.24),rgba(255,255,255,0.02))"></div>
+                <div style="position:absolute;left:14px;right:14px;bottom:36px;background:#fbfaf7;border:1px solid #e6e3dc;padding:14px 10px;text-align:center">
+                  <div style="font-size:8px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#15171a">Domaine Aubert</div>
+                  <div style="width:20px;height:1px;background:#cbc8c0;margin:7px auto"></div>
+                  <div style="font-size:11px;font-weight:600;color:#15171a;line-height:1.25">{{ w.appellation }}</div>
+                  <div style="font-size:18px;font-weight:800;color:#15171a;margin-top:4px">{{ w.vintageLabel }}</div>
+                </div>
+              </div>
+            </div>
+            </sc-if>
+          </div>
+          <div style="{{ w.colStyle }}">
+            <span style="display:inline-block;background:#15171a;color:#fff;padding:8px 20px;font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase">{{ w.descriptor }}</span>
+            <h2 style="margin:0;font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:-0.02em;line-height:1.1">{{ w.name }}</h2>
+            <div style="font-size:12.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#9a9892">{{ w.metaLine }}</div>
+            <p style="margin:0;font-size:15.5px;line-height:1.7;color:#6b6c70;max-width:520px">{{ w.desc }}</p>
+            <div style="font-size:24px;font-weight:800;letter-spacing:-0.01em;color:#15171a">{{ w.priceLabel }}</div>
+            <div style="display:inline-flex;flex-direction:column;gap:12px;margin-top:4px">
+              <button onClick="{{ w.onAdd }}" style="appearance:none;border:none;background:#15171a;color:#fff;padding:14px 30px;border-radius:2px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Ajouter au panier</button>
+              <button onClick="{{ w.onSheet }}" style="appearance:none;border:1px solid #ddd9d1;background:#fff;color:#15171a;padding:13px 30px;border-radius:2px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#15171a">Fiche de dégustation</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ CONTACT ============ -->
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Contact">
+    <section style="position:relative;height:clamp(440px,72vh,680px);background-image:linear-gradient(180deg,rgba(16,18,20,0.3),rgba(16,18,20,0.04) 38%,rgba(16,18,20,0.78)),url('uploads/contact_sis_s.png');background-size:cover;background-position:center 30%">
+      <div style="max-width:1000px;margin:0 auto;height:100%;padding:0 clamp(20px,5vw,48px) 60px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:rgba(255,255,255,0.82);text-transform:uppercase;margin-bottom:18px">Nous contacter</div>
+        <h1 style="margin:0;font-size:clamp(38px,6vw,72px);font-weight:800;letter-spacing:-0.025em;line-height:0.98;color:#fff;text-shadow:0 2px 34px rgba(0,0,0,0.4)">Rencontrons-nous</h1>
+        <p style="margin:16px 0 0;font-size:17px;line-height:1.7;color:rgba(255,255,255,0.85);max-width:560px">Pour une visite, une commande ou la presse — écrivez-nous, nous répondons sous 48 heures.</p>
+      </div>
+    </section>
+    <section style="max-width:1080px;margin:0 auto;padding:80px clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:56px">
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div style="display:flex;gap:16px;align-items:center"><img src="uploads/logo_s.png" alt="Blason Domaine Aubert" style="width:58px;height:auto;flex:none;filter:invert(1);opacity:0.82"><div><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#9a9892;margin-bottom:7px">Le domaine</div><div style="font-size:15.5px;line-height:1.6;color:#15171a">Domaine Aubert<br>21190 Meursault · Bourgogne</div></div></div>
+        <div><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#9a9892;margin-bottom:7px">Téléphone</div><div style="font-size:15.5px;color:#15171a">+33 3 80 00 00 00</div></div>
+        <div><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#9a9892;margin-bottom:7px">Email</div><div style="font-size:15.5px;color:#15171a">contact@domaine-aubert.fr</div></div>
+        <div><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#9a9892;margin-bottom:7px">Visites &amp; dégustations</div><div style="font-size:15.5px;line-height:1.6;color:#15171a">Du mardi au samedi, 9h–18h<br>sur rendez-vous.</div></div>
+      </div>
+      <div style="background:#faf9f6;border:1px solid #ece9e2;border-radius:4px;padding:30px">
+        <h2 style="margin:0 0 6px;font-size:22px;font-weight:800;letter-spacing:-0.015em">Écrivez-nous</h2>
+        <p style="margin:0 0 22px;font-size:13.5px;line-height:1.6;color:#7c7d80">Une question, une commande ou une demande de visite : ce formulaire arrive directement au domaine.</p>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Nom</span><input style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:11px 12px;font-family:inherit;font-size:14px;background:#fff"></label>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Email</span><input style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:11px 12px;font-family:inherit;font-size:14px;background:#fff"></label>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Message</span><textarea rows="5" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:11px 12px;font-family:inherit;font-size:14px;background:#fff;resize:vertical"></textarea></label>
+          <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;width:16px;height:16px;flex:none;accent-color:#15171a"><span style="font-size:11.5px;line-height:1.55;color:#7c7d80">J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="#" style="color:#15171a">politique de confidentialité</a>. Elles ne sont ni cédées ni revendues et sont conservées 12 mois maximum (RGPD).</span></label>
+          <button style="appearance:none;border:none;background:#15171a;color:#fff;padding:14px;border-radius:2px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Envoyer</button>
+        </div>
+      </div>
+    </section>
+    <section style="max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,48px) 90px">
+      <div style="text-align:center;margin-bottom:34px">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:#15171a;text-transform:uppercase;margin-bottom:14px">Nous visiter</div>
+        <h2 style="margin:0;font-size:clamp(26px,3.4vw,40px);font-weight:800;letter-spacing:-0.02em">Au cœur de Meursault</h2>
+      </div>
+      <div style="position:relative;border:1px solid #ece9e2;border-radius:4px;overflow:hidden;height:clamp(280px,44vh,420px)">
+        <iframe title="Carte — Domaine Aubert, Meursault" src="https://www.openstreetmap.org/export/embed.html?bbox=4.745%2C46.962%2C4.795%2C46.992&layer=mapnik&marker=46.9776%2C4.7686" style="width:100%;height:100%;border:0;display:block"></iframe>
+        <a href="https://www.google.com/maps/search/?api=1&query=Domaine+Aubert+Meursault+21190" target="_blank" rel="noopener" style="position:absolute;bottom:18px;right:18px;background:#15171a;color:#fff;padding:13px 24px;border-radius:2px;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.25)">Voir sur Google Maps →</a>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ CHECKOUT ============ -->
+  <sc-if value="{{ isCheckout }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Commande">
+    <sc-if value="{{ coPay }}" hint-placeholder-val="{{ true }}">
+    <section style="max-width:1080px;margin:0 auto;padding:72px clamp(20px,5vw,48px)">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:#15171a;text-transform:uppercase;margin-bottom:16px">Commande</div>
+      <h1 style="margin:0 0 40px;font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-0.025em;line-height:1">Finaliser l'achat</h1>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;align-items:start">
+        <div style="background:#faf9f6;border:1px solid #ece9e2;border-radius:20px;padding:26px">
+          <h3 style="margin:0 0 16px;font-size:14px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Récapitulatif</h3>
+          <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="2">
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #ece9e2">
+              <span style="font-size:14px;line-height:1.4">{{ l.name }} <span style="color:#9a9892">× {{ l.qty }}</span></span>
+              <span style="font-size:14px;font-weight:700;white-space:nowrap">{{ l.lineLabel }}</span>
+            </div>
+          </sc-for>
+          <div style="margin-top:20px"><div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80;margin-bottom:10px">Livraison</div><div style="display:flex;flex-direction:column;gap:8px"><sc-for list="{{ deliveryOptions }}" as="o" hint-placeholder-count="3"><div onClick="{{ o.onClick }}" style="{{ o.style }}"><div><div style="font-size:13.5px;font-weight:600">{{ o.label }}</div><div style="font-size:11.5px;color:#9a9892">{{ o.sub }}</div></div><span style="font-size:13px;font-weight:700;white-space:nowrap">{{ o.costLabel }}</span></div></sc-for></div></div>
+          <div style="margin-top:18px;border-top:1px solid #ece9e2;padding-top:14px;display:flex;flex-direction:column;gap:7px"><div style="display:flex;justify-content:space-between;font-size:13px;color:#6b6c70"><span>Sous-total</span><span>{{ cartTotal }}</span></div><div style="display:flex;justify-content:space-between;font-size:13px;color:#6b6c70"><span>Livraison</span><span>{{ deliveryCostLabel }}</span></div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:4px"><span style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#15171a">Total</span><span style="font-size:22px;font-weight:800">{{ orderTotal }}</span></div></div>
+        </div>
+        <div style="background:#fff;border:1px solid #ece9e2;border-radius:20px;padding:26px">
+          <h3 style="margin:0 0 6px;font-size:14px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Paiement</h3>
+          <p style="margin:0 0 20px;font-size:12.5px;color:#9a9892">Simulation — aucune transaction réelle n'est effectuée.</p>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Titulaire de la carte</span><input placeholder="Nom Prénom" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:11px 12px;font-family:inherit;font-size:14px"></label>
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Numéro de carte</span><input placeholder="4242 4242 4242 4242" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:11px 12px;font-family:inherit;font-size:14px"></label>
+            <div style="display:flex;gap:14px">
+              <label style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Expiration</span><input placeholder="MM / AA" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:11px 12px;font-family:inherit;font-size:14px;width:100%"></label>
+              <label style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">CVC</span><input placeholder="123" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:11px 12px;font-family:inherit;font-size:14px;width:100%"></label>
+            </div>
+            <button onClick="{{ payNow }}" style="margin-top:6px;appearance:none;border:none;background:#15171a;color:#fff;padding:15px;border-radius:2px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Payer {{ orderTotal }}</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+    <sc-if value="{{ coEmpty }}" hint-placeholder-val="{{ false }}">
+    <section style="max-width:680px;margin:0 auto;padding:120px clamp(20px,5vw,48px);text-align:center">
+      <h1 style="margin:0 0 14px;font-size:32px;font-weight:800">Votre panier est vide</h1>
+      <p style="margin:0 0 28px;color:#7c7d80">Ajoutez des cuvées avant de passer commande.</p>
+      <button onClick="{{ goBoutique }}" style="appearance:none;border:none;background:#15171a;color:#fff;padding:14px 28px;border-radius:2px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer">Voir les vins</button>
+    </section>
+    </sc-if>
+    <sc-if value="{{ coDone }}" hint-placeholder-val="{{ false }}">
+    <section style="max-width:640px;margin:0 auto;padding:110px clamp(20px,5vw,48px);text-align:center">
+      <div style="width:64px;height:64px;border-radius:999px;background:#15171a;color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:30px">✓</div>
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.26em;color:#15171a;text-transform:uppercase;margin-bottom:14px">Commande confirmée</div>
+      <h1 style="margin:0 0 16px;font-size:clamp(30px,4.5vw,48px);font-weight:800;letter-spacing:-0.02em;line-height:1.05">Merci pour votre commande</h1>
+      <p style="margin:0 auto 8px;font-size:16px;line-height:1.6;color:#6b6c70;max-width:460px">Votre commande <strong>{{ orderRef }}</strong> d'un montant de <strong>{{ paidTotal }}</strong> a bien été enregistrée.</p>
+      <p style="margin:0 auto 30px;font-size:14px;color:#9a9892;max-width:460px">Un email de confirmation vous a été envoyé. (Paiement simulé)</p>
+      <button onClick="{{ goBoutique }}" style="appearance:none;border:none;background:#15171a;color:#fff;padding:14px 30px;border-radius:2px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer">Retour à la boutique</button>
+    </section>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <!-- ============ ADMIN ============ -->
+  <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Admin" style="background:#f1f0ec;min-height:calc(100vh - 72px)">
+    <div style="max-width:1280px;margin:0 auto;padding:44px 48px 80px">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:8px">
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#7c7d80">Espace professionnel</div>
+          <h1 style="margin:6px 0 0;font-size:34px;font-weight:800;letter-spacing:-0.02em">Tableau de bord</h1>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="text-align:right">
+            <div style="font-size:13.5px;font-weight:700">Camille Aubert</div>
+            <div style="font-size:11.5px;color:#7c7d80">Administratrice</div>
+          </div>
+          <div style="width:40px;height:40px;border-radius:999px;background-image:url('uploads/camille_s.png');background-size:cover;background-position:center;border:1px solid #ddd9d1"></div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;border-bottom:1px solid #ddd9d1;margin:24px 0 32px;flex-wrap:wrap">
+        <button onClick="{{ tDash.onClick }}" style="{{ tDash.style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>{{ tDash.label }}</button>
+        <button onClick="{{ tStock.onClick }}" style="{{ tStock.style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/></svg>{{ tStock.label }}</button>
+        <button onClick="{{ tCmd.onClick }}" style="{{ tCmd.style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>{{ tCmd.label }}</button>
+        <span style="width:1px;height:24px;background:#ddd9d1;margin:0 8px;align-self:center"></span>
+        <button onClick="{{ tShop.onClick }}" style="{{ tShop.style }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 12l-8 8-9-9V3h8l9 9z"/></svg>{{ tShop.label }}</button>
+      </div>
+
+      <sc-if value="{{ isProduits }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+          <div>
+            <h3 style="margin:0;font-size:16px;font-weight:700;display:flex;align-items:center;gap:9px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#15171a" stroke-width="2" stroke-linejoin="round"><path d="M20 12l-8 8-9-9V3h8l9 9z"/></svg>Produits de la boutique</h3>
+            <p style="margin:4px 0 0;font-size:12.5px;color:#7c7d80">Gérez les cuvées affichées dans la boutique.</p>
+          </div>
+          <button onClick="{{ startAdd }}" style="appearance:none;border:none;background:#15171a;color:#fff;padding:11px 20px;border-radius:2px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">+ Ajouter un produit</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">
+          <sc-for list="{{ productsAdmin }}" as="p" hint-placeholder-count="8">
+            <div style="background:#fff;border:1px solid #e6e3dc;border-radius:20px;overflow:hidden;display:flex;flex-direction:column">
+              <div style="background:#f7f5f1;display:flex;align-items:center;justify-content:center;padding:18px 12px;border-bottom:1px solid #ece9e2">
+                <div style="{{ p.cardImageStyle }}"></div>
+              </div>
+              <div style="padding:16px;display:flex;flex-direction:column;gap:6px;flex:1">
+                <div style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a9892">{{ p.typeLabel }}</div>
+                <div style="font-size:14.5px;font-weight:700;line-height:1.25;min-height:36px">{{ p.name }}</div>
+                <div style="font-size:11.5px;color:#9a9892">{{ p.meta }}</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">
+                  <span style="font-size:15px;font-weight:800">{{ p.priceLabel }}</span>
+                  <span style="font-size:11.5px;color:#6b6c70">Stock {{ p.stockLabel }}</span>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:auto;padding-top:12px">
+                  <button onClick="{{ p.onEdit }}" style="flex:1;appearance:none;border:none;background:#15171a;color:#fff;padding:9px;border-radius:2px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Modifier</button>
+                  <button onClick="{{ p.onDelete }}" style="appearance:none;border:1px solid #e3d6d6;background:#fff;color:#a23b3b;padding:9px 13px;border-radius:2px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">×</button>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px;margin-bottom:28px">
+          <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+            <div style="background:#fff;border:1px solid #e6e3dc;border-radius:20px;padding:22px">
+              <div style="font-size:11.5px;font-weight:600;letter-spacing:0.04em;color:#7c7d80;text-transform:uppercase">{{ k.label }}</div>
+              <div style="font-size:30px;font-weight:800;letter-spacing:-0.02em;margin:12px 0 8px">{{ k.value }}</div>
+              <div style="font-size:12.5px;font-weight:700;color:#7c7d80">{{ k.delta }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+          <div style="background:#fff;border:1px solid #e6e3dc;border-radius:20px;padding:24px">
+            <h3 style="margin:0 0 18px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:9px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#15171a" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Dernières commandes</h3>
+            <sc-for list="{{ orders }}" as="o" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:64px 1fr auto auto;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #f0ede6">
+                <span style="font-size:12.5px;font-weight:700;color:#15171a">{{ o.ref }}</span>
+                <div>
+                  <div style="font-size:13.5px;font-weight:600">{{ o.client }}</div>
+                  <div style="font-size:11.5px;color:#9a9892">{{ o.date }}</div>
+                </div>
+                <span style="font-size:13.5px;font-weight:700">{{ o.montant }}</span>
+                <span style="{{ o.statusStyle }}">{{ o.statut }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid #e6e3dc;border-radius:20px;padding:24px">
+            <h3 style="margin:0 0 18px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:9px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#15171a" stroke-width="2" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/></svg>Stock à surveiller</h3>
+            <sc-for list="{{ lowStock }}" as="w" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #f0ede6">
+                <div>
+                  <div style="font-size:13.5px;font-weight:600;line-height:1.2">{{ w.name }}</div>
+                  <div style="font-size:11.5px;color:#9a9892">{{ w.vintageLabel }}</div>
+                </div>
+                <span style="{{ w.statusStyle }}">{{ w.statusLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isStock }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border:1px solid #e6e3dc;border-radius:20px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr auto;gap:14px;padding:16px 24px;background:#f7f5f1;border-bottom:1px solid #e8e6e1;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">
+          <span>Cuvée</span><span>Type</span><span>Millésime</span><span>Stock</span><span>État</span><span>Action</span>
+        </div>
+        <sc-for list="{{ stockView }}" as="w" hint-placeholder-count="8">
+          <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr auto;gap:14px;padding:16px 24px;border-bottom:1px solid #f3f0e9;align-items:center">
+            <span style="font-size:14px;font-weight:600">{{ w.name }}</span>
+            <span style="font-size:13px;color:#6b6c70">{{ w.typeLabel }}</span>
+            <span style="font-size:13px;color:#6b6c70">{{ w.vintageLabel }}</span>
+            <span style="font-size:14px;font-weight:700">{{ w.stockLabel }}</span>
+            <span style="{{ w.statusStyle }}">{{ w.statusLabel }}</span><button onClick="{{ w.onToggleHide }}" style="appearance:none;border:1px solid #ddd9d1;background:#fff;color:#6b6c70;padding:6px 12px;border-radius:999px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;white-space:nowrap;justify-self:start">{{ w.hideLabel }}</button>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isCmd }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border:1px solid #e6e3dc;border-radius:20px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:80px 1.6fr 1fr 1fr 1fr;gap:14px;padding:16px 24px;background:#f7f5f1;border-bottom:1px solid #e8e6e1;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">
+          <span>Réf.</span><span>Client</span><span>Date</span><span>Montant</span><span>Statut</span>
+        </div>
+        <sc-for list="{{ orders }}" as="o" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:80px 1.6fr 1fr 1fr 1fr;gap:14px;padding:16px 24px;border-bottom:1px solid #f3f0e9;align-items:center">
+            <span style="font-size:13px;font-weight:700;color:#15171a">{{ o.ref }}</span>
+            <span style="font-size:14px;font-weight:600">{{ o.client }}</span>
+            <span style="font-size:13px;color:#6b6c70">{{ o.date }}</span>
+            <span style="font-size:14px;font-weight:700">{{ o.montant }}</span>
+            <span style="{{ o.statusStyle }}">{{ o.statut }}</span>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ PANIER ============ -->
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:100;display:flex;justify-content:flex-end">
+    <div onClick="{{ closeCart }}" style="position:absolute;inset:0;background:rgba(16,18,20,0.42)"></div>
+    <div style="position:relative;width:420px;max-width:100%;height:100%;background:#fff;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,0.2)">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 26px;border-bottom:1px solid #e8e6e1">
+        <span style="font-size:14px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase">Votre panier</span>
+        <button onClick="{{ closeCart }}" style="appearance:none;background:none;border:none;cursor:pointer;font-size:22px;line-height:1;color:#7c7d80">×</button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:8px 26px">
+        <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="2">
+            <div style="display:flex;gap:14px;padding:20px 0;border-bottom:1px solid #f3f0e9">
+              <div style="{{ l.thumbStyle }}"></div>
+              <div style="flex:1">
+                <div style="font-size:14px;font-weight:700;line-height:1.25">{{ l.name }}</div>
+                <div style="font-size:11.5px;color:#7c7d80;margin:3px 0 10px">{{ l.meta }}</div>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <button onClick="{{ l.onDec }}" style="appearance:none;width:26px;height:26px;border:1px solid #ddd9d1;background:#fff;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;color:#15171a">−</button>
+                  <span style="font-size:13.5px;font-weight:700;min-width:18px;text-align:center">{{ l.qty }}</span>
+                  <button onClick="{{ l.onInc }}" style="appearance:none;width:26px;height:26px;border:1px solid #ddd9d1;background:#fff;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;color:#15171a">+</button>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:14px;font-weight:800">{{ l.lineLabel }}</div>
+                <button onClick="{{ l.onRemove }}" style="appearance:none;background:none;border:none;cursor:pointer;font-size:11px;color:#7c7d80;text-decoration:underline;margin-top:8px;padding:0">Retirer</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        </sc-if>
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:80px 20px;color:#7c7d80">
+          <div style="font-size:15px;font-weight:600;color:#15171a">Votre panier est vide</div>
+          <p style="font-size:13.5px;margin:10px 0 24px">Découvrez les cuvées du domaine.</p>
+          <button onClick="{{ goBoutiqueFromCart }}" style="appearance:none;border:none;background:#15171a;color:#fff;padding:12px 24px;border-radius:2px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">Voir les vins</button>
+        </div>
+        </sc-if>
+      </div>
+      <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ true }}">
+      <div style="padding:22px 26px;border-top:1px solid #e8e6e1">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+          <span style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#7c7d80">Total</span>
+          <span style="font-size:24px;font-weight:800;letter-spacing:-0.01em">{{ cartTotal }}</span>
+        </div>
+        <button onClick="{{ goCheckout }}" style="width:100%;appearance:none;border:none;background:#15171a;color:#fff;padding:15px;border-radius:2px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Passer la commande</button>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ FICHE DE DÉGUSTATION ============ -->
+  <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:115;display:flex;align-items:center;justify-content:center;padding:24px">
+    <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(16,18,20,0.55)"></div>
+    <div style="position:relative;background:#fff;border-radius:20px;max-width:780px;width:100%;max-height:90vh;overflow:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));box-shadow:0 30px 80px rgba(0,0,0,0.3)">
+      <button onClick="{{ closeSheet }}" style="position:absolute;top:14px;right:16px;appearance:none;background:none;border:none;cursor:pointer;font-size:24px;line-height:1;color:#7c7d80;z-index:2">×</button>
+      <div style="background:#f5f4f1;display:flex;align-items:center;justify-content:center;padding:34px 16px">
+        <div style="{{ sheet.imageStyle }}"></div>
+      </div>
+      <div style="padding:36px 32px 30px;display:flex;flex-direction:column;gap:13px">
+        <span style="align-self:flex-start;background:#15171a;color:#fff;padding:6px 16px;font-size:11px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase">{{ sheet.descriptor }}</span>
+        <h2 style="margin:0;font-size:25px;font-weight:800;letter-spacing:-0.02em;line-height:1.12">{{ sheet.name }}</h2>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9a9892">{{ sheet.meta }}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;border-top:1px solid #ece9e2;border-bottom:1px solid #ece9e2;padding:16px 0;margin:4px 0">
+          <div><div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9a9892;margin-bottom:3px">Cépage</div><div style="font-size:14px;font-weight:600">{{ sheet.cepage }}</div></div>
+          <div><div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9a9892;margin-bottom:3px">Service</div><div style="font-size:14px;font-weight:600">{{ sheet.service }}</div></div>
+          <div><div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9a9892;margin-bottom:3px">Garde</div><div style="font-size:14px;font-weight:600">{{ sheet.garde }}</div></div>
+          <div><div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9a9892;margin-bottom:3px">Type</div><div style="font-size:14px;font-weight:600">{{ sheet.type }}</div></div>
+        </div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#15171a">Dégustation</div>
+        <p style="margin:0;font-size:14px;line-height:1.7;color:#6b6c70">{{ sheet.desc }}</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">
+          <span style="font-size:22px;font-weight:800">{{ sheet.priceLabel }}</span>
+          <button onClick="{{ sheet.onAdd }}" style="appearance:none;border:none;background:#15171a;color:#fff;padding:13px 26px;border-radius:2px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Ajouter au panier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ FORMULAIRE PRODUIT ============ -->
+  <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:24px">
+    <div onClick="{{ form.onCancel }}" style="position:absolute;inset:0;background:rgba(16,18,20,0.55)"></div>
+    <div style="position:relative;background:#fff;border-radius:20px;max-width:560px;width:100%;max-height:90vh;overflow:auto;padding:30px 30px 26px;box-shadow:0 30px 80px rgba(0,0,0,0.3)">
+      <h3 style="margin:0 0 20px;font-size:20px;font-weight:800;letter-spacing:-0.01em">{{ form.title }}</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 16px">
+        <div style="grid-column:1/-1;display:flex;gap:16px;align-items:center;padding:14px;border:1px dashed #ddd9d1;border-radius:3px">
+          <sc-if value="{{ form.hasImage }}" hint-placeholder-val="{{ false }}"><div style="{{ form.previewStyle }}"></div></sc-if>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80;margin-bottom:9px">Photo de la bouteille</div>
+            <label style="display:inline-block;cursor:pointer;border:1px solid #15171a;padding:9px 16px;border-radius:2px;font-size:11.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#15171a">Téléverser<input type="file" accept="image/*" onChange="{{ form.onImage }}" style="display:none"></label>
+            <sc-if value="{{ form.hasImage }}" hint-placeholder-val="{{ false }}"><button onClick="{{ form.removeImage }}" style="margin-left:12px;appearance:none;background:none;border:none;cursor:pointer;font-family:inherit;font-size:11.5px;color:#a23b3b;text-decoration:underline">Retirer</button></sc-if>
+          </div>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Nom de la cuvée</span><input value="{{ form.name }}" onChange="{{ form.onName }}" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:10px 12px;font-family:inherit;font-size:14px"></label>
+        <label style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Appellation</span><input value="{{ form.appellation }}" onChange="{{ form.onAppellation }}" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:10px 12px;font-family:inherit;font-size:14px"></label>
+        <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Millésime</span><input value="{{ form.vintage }}" onChange="{{ form.onVintage }}" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:10px 12px;font-family:inherit;font-size:14px"></label>
+        <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Prix (€)</span><input type="number" value="{{ form.price }}" onChange="{{ form.onPrice }}" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:10px 12px;font-family:inherit;font-size:14px"></label>
+        <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Stock</span><input type="number" value="{{ form.stock }}" onChange="{{ form.onStock }}" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:10px 12px;font-family:inherit;font-size:14px"></label>
+        <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Type</span><select value="{{ form.type }}" onChange="{{ form.onType }}" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:10px 12px;font-family:inherit;font-size:14px;background:#fff"><option>Blanc</option><option>Rouge</option><option>Effervescent</option></select></label>
+        <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Niveau</span><select value="{{ form.tier }}" onChange="{{ form.onTier }}" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:10px 12px;font-family:inherit;font-size:14px;background:#fff"><option>Régionale</option><option>Village</option><option>Climat</option><option>1ᵉʳ Cru</option><option>Méthode traditionnelle</option></select></label>
+        <label style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Mot-clé</span><input value="{{ form.descriptor }}" onChange="{{ form.onDescriptor }}" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:10px 12px;font-family:inherit;font-size:14px"></label>
+        <label style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1"><span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c7d80">Dégustation</span><textarea rows="3" value="{{ form.desc }}" onChange="{{ form.onDesc }}" style="appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:10px 12px;font-family:inherit;font-size:14px;resize:vertical"></textarea></label>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:22px">
+        <button onClick="{{ form.onCancel }}" style="appearance:none;border:1px solid #ddd9d1;background:#fff;color:#15171a;padding:11px 22px;border-radius:2px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">Annuler</button>
+        <button onClick="{{ form.onSave }}" style="appearance:none;border:none;background:#15171a;color:#fff;padding:11px 22px;border-radius:2px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ LOGIN ADMIN ============ -->
+  <sc-if value="{{ adminLogin }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:130;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(16,18,20,0.85)">
+    <div style="background:#fff;border-radius:20px;max-width:380px;width:100%;padding:38px 34px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,0.4)">
+      <div style="width:74px;height:74px;border-radius:999px;margin:0 auto 18px;background-image:url('uploads/camille_s.png');background-size:cover;background-position:center;border:1px solid #ddd9d1"></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a9892">Espace professionnel</div>
+      <h2 style="margin:8px 0 6px;font-size:22px;font-weight:800;letter-spacing:-0.01em">Connexion</h2>
+      <p style="margin:0 0 22px;font-size:12.5px;color:#9a9892">Mode démo — identifiants pré-remplis</p>
+      <input defaultValue="camille" style="width:100%;box-sizing:border-box;appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:12px;font-family:inherit;font-size:14px;margin-bottom:12px;text-align:center">
+      <input type="password" defaultValue="demo2024" style="width:100%;box-sizing:border-box;appearance:none;border:1px solid #ddd9d1;border-radius:3px;padding:12px;font-family:inherit;font-size:14px;text-align:center">
+      <button onClick="{{ doLogin }}" style="width:100%;margin-top:16px;appearance:none;border:none;background:#15171a;color:#fff;padding:14px;border-radius:2px;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#3a3d42">Se connecter</button>
+      <button onClick="{{ goAccueil }}" style="margin-top:14px;appearance:none;background:none;border:none;cursor:pointer;font-family:inherit;font-size:12px;color:#9a9892;text-decoration:underline">Retour au site</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ FOOTER ============ -->
+  <sc-if value="{{ showFooter }}" hint-placeholder-val="{{ true }}">
+  <footer style="background:#101214;color:rgba(255,255,255,0.7)">
+    <div style="max-width:1280px;margin:0 auto;padding:72px clamp(20px,5vw,48px) 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:40px">
+      <div>
+        <img src="uploads/logo_s.png" alt="Blason Domaine Aubert" style="width:78px;height:auto;display:block;margin-bottom:20px;opacity:0.9">
+        <div style="font-size:18px;font-weight:800;letter-spacing:0.02em;color:#fff">DOMAINE AUBERT</div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.32em;color:rgba(255,255,255,0.55);margin-top:4px">MEURSAULT · 1843</div>
+        <p style="font-size:13.5px;line-height:1.7;margin:20px 0 0;max-width:280px">Vins de Bourgogne, transmis de père en fille sur trois générations.</p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#fff;margin-bottom:16px">Le domaine</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px">
+          <button onClick="{{ goHistoire }}" style="appearance:none;background:none;border:none;cursor:pointer;color:inherit;font-family:inherit;font-size:13.5px;text-align:left;padding:0">Notre histoire</button>
+          <button onClick="{{ goBoutique }}" style="appearance:none;background:none;border:none;cursor:pointer;color:inherit;font-family:inherit;font-size:13.5px;text-align:left;padding:0">Nos vins</button><button onClick="{{ goContact }}" style="appearance:none;background:none;border:none;cursor:pointer;color:inherit;font-family:inherit;font-size:13.5px;text-align:left;padding:0">Nous contacter</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#fff;margin-bottom:16px">Informations</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px">
+          <span>Mentions légales</span><span>Politique de confidentialité</span><span>Conditions de vente</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#fff;margin-bottom:16px">Contact</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px">
+          <span>Domaine Aubert<br>21190 Meursault · Bourgogne</span><span>+33 3 80 00 00 00</span><span>contact@domaine-aubert.fr</span>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1280px;margin:0 auto;padding:20px 48px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:11.5px;color:rgba(255,255,255,0.45)">
+      <span>© 2026 Domaine Aubert · L'abus d'alcool est dangereux pour la santé</span>
+      <span>Réalisation du site : B-Conseil</span>
+    </div>
+  </footer>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page:'accueil', cart:{}, cartOpen:false, filter:'tous', adminTab:'dashboard', heroNameVisible:false, revealed:{}, sheet:null, form:null, formMode:null, products:null, checkoutDone:false, orderRef:'', paidTotal:'', delivery:'retrait', adminAuth:false };
+
+  componentDidMount(){
+    this._io = new IntersectionObserver((entries)=>{
+      const add = {}; let changed = false;
+      entries.forEach(e=>{ if(e.isIntersecting){ const idx = +e.target.getAttribute('data-reveal'); add[idx] = true; this._io.unobserve(e.target); changed = true; } });
+      if(changed) this.setState(s=>({ revealed:{ ...s.revealed, ...add } }));
+    }, { threshold:0.18, rootMargin:'0px 0px -8% 0px' });
+    this.observeReveals();
+  }
+  componentDidUpdate(){ this.observeReveals(); }
+  observeReveals(){ if(!this._io) return; document.querySelectorAll('[data-reveal]:not([data-ro])').forEach(el=>{ el.setAttribute('data-ro','1'); this._io.observe(el); }); }
+
+  wines = [
+    { id:'meursault-charmes', name:'Meursault « Les Charmes »', appellation:'Meursault', tier:'Climat', vintage:2021, type:'Blanc', price:58, stock:240, descriptor:'Finesse', image:'uploads/charmes_w.png',
+      note:'Noisette grillée, agrumes confits et finale saline.',
+      desc:'« Les Charmes » s\u2019étend sur le bas du coteau de Meursault, sur des argiles fines qui donnent au Chardonnay sa rondeur. Vignes de plus de quarante ans, pressurage lent et long élevage en fûts. Noisette grillée, agrumes confits et finale saline.' },
+    { id:'genevrieres', name:'Meursault 1ᵉʳ Cru « Genevrières »', appellation:'Meursault 1ᵉʳ Cru', tier:'1ᵉʳ Cru', vintage:2019, type:'Blanc', price:120, stock:64, descriptor:'Quintessence', image:'uploads/genevrieres_w.png',
+      note:'Grande tension minérale, miel et fleurs blanches.',
+      desc:'Sur les marnes blanches du haut de Meursault, « Genevrières » conjugue tension et profondeur. Une cuvée de garde à la minéralité droite, sur le miel et les fleurs blanches, qui se déploie après quelques années de cave.' },
+    { id:'puligny', name:'Puligny-Montrachet', appellation:'Puligny-Montrachet', tier:'Village', vintage:2020, type:'Blanc', price:95, stock:0, descriptor:'Pureté', image:'uploads/puligny_w2.png',
+      note:'Pureté cristalline, amande fraîche, allonge précise.',
+      desc:'Pureté cristalline et amande fraîche : Puligny exprime ici toute la précision du calcaire. Une allonge ciselée, une bouche tendue et saline, faite pour la table.' },
+    { id:'aligote', name:'Bourgogne Aligoté', appellation:'Bourgogne', tier:'Régionale', vintage:2022, type:'Blanc', price:24, stock:520, descriptor:'Vivacité', image:'uploads/aligote_w.png',
+      note:'Vif et croquant, parfait sur les fruits de mer.',
+      desc:'Le cépage historique de la maison, vif et croquant. Pomme verte, agrumes et une salinité franche qui appelle les huîtres et les fruits de mer.' },
+    { id:'pommard', name:'Pommard « Les Vignots »', appellation:'Pommard', tier:'Village', vintage:2020, type:'Rouge', price:62, stock:180, descriptor:'Puissance', image:'uploads/pommard_w.png',
+      note:'Charpenté, cerise noire et épices douces.',
+      desc:'Sur les fers rouges de Pommard, un Pinot Noir charpenté et profond. Cerise noire, épices douces et tanins serrés, faits pour la garde et les plats de caractère.' },
+    { id:'volnay', name:'Volnay 1ᵉʳ Cru', appellation:'Volnay 1ᵉʳ Cru', tier:'1ᵉʳ Cru', vintage:2019, type:'Rouge', price:88, stock:96, descriptor:'Élégance', image:'uploads/volnay_w.png',
+      note:'Soyeux et floral, tanins de velours.',
+      desc:'Le plus délicat de nos rouges. Volnay déploie un fruit floral, une texture soyeuse et des tanins de velours d\u2019une grande finesse.' },
+    { id:'pinot', name:'Bourgogne Pinot Noir', appellation:'Bourgogne', tier:'Régionale', vintage:2022, type:'Rouge', price:28, stock:610, descriptor:'Gourmandise', image:'uploads/pinot_w.png',
+      note:'Fruits rouges éclatants, gourmand et léger.',
+      desc:'Fruits rouges éclatants, bouche souple et gourmande. Le Pinot du quotidien, à boire sur sa jeunesse, légèrement rafraîchi.' },
+    { id:'cremant', name:'Crémant de Bourgogne Brut', appellation:'Crémant de Bourgogne', tier:'Méthode traditionnelle', vintage:'NV', type:'Effervescent', price:26, stock:300, descriptor:'Effervescence', image:'uploads/cremant_w.png',
+      note:'Bulle fine, brioche et pomme verte.',
+      desc:'Bulle fine et persistante, notes de brioche et de pomme verte. Un Crémant vineux, dressé aussi bien pour l\u2019apéritif que pour la fête.' }
+  ];
+
+  generations = [
+    { year:'1843', title:'Les origines', text:'Les premières vignes sont plantées sur les coteaux de Meursault, sur des parcelles d\u2019argilo-calcaire encore exploitées aujourd\u2019hui.' },
+    { year:'1958', title:'Marcel Aubert · 1ʳᵉ génération', text:'La famille Aubert reprend le domaine, restaure les caves voûtées et bâtit la cuverie qui sert encore aux vinifications.' },
+    { year:'1985', title:'Bernard Aubert · 2ᵉ génération', text:'Son fils Bernard délimite le vignoble en lieux-dits, impose les vendanges manuelles et une vinification parcelle par parcelle.' },
+    { year:'2012', title:'Camille & Louise Aubert · 3ᵉ génération', text:'Les deux sœurs succèdent à leur père Bernard. De père en filles, elles reprennent ensemble le domaine, affinent le travail parcellaire et signent aujourd\u2019hui des blancs de Meursault de référence.' }
+  ];
+
+  orders = [
+    { ref:'#10428', client:'Cave des Halles · Lyon', date:'18 juin', montant:'1 740 €', statut:'Expédiée', tone:'green' },
+    { ref:'#10427', client:'M. Lefèvre', date:'17 juin', montant:'212 €', statut:'En préparation', tone:'outline' },
+    { ref:'#10426', client:'Le Clos · Paris 6ᵉ', date:'16 juin', montant:'2 980 €', statut:'Payée', tone:'blue' },
+    { ref:'#10425', client:'Mme Garnier', date:'15 juin', montant:'88 €', statut:'Expédiée', tone:'green' },
+    { ref:'#10424', client:'Hôtel de Beaune', date:'14 juin', montant:'1 256 €', statut:'En préparation', tone:'outline' }
+  ];
+
+  kpis = [
+    { label:'Chiffre d\u2019affaires · juin', value:'48 920 €', delta:'+12,4 % vs mai' },
+    { label:'Commandes', value:'137', delta:'+8 cette semaine' },
+    { label:'Bouteilles en stock', value:'9 480', delta:'\u2212320 ce mois' },
+    { label:'Panier moyen', value:'357 €', delta:'+4,1 %' }
+  ];
+
+  fmt(n){ return n.toLocaleString('fr-FR') + ' €'; }
+
+  bottleColors(type){
+    if (type==='Rouge') return { cap:'#0e0f11', neck:'linear-gradient(90deg,#3a3d42,#1a1c1e)', body:'linear-gradient(100deg,#42454a,#1d1f22 55%,#0e0f11)' };
+    if (type==='Effervescent') return { cap:'#7c6f3f', neck:'linear-gradient(90deg,#bcb079,#7c6f3f)', body:'linear-gradient(100deg,#dcd9b4,#ada366 52%,#7e7248)' };
+    return { cap:'#5f6a43', neck:'linear-gradient(90deg,#97a06f,#5f6a43)', body:'linear-gradient(100deg,#c8cfa6,#929a68 52%,#636c46)' };
+  }
+
+  go = (p) => { this.setState({ page:p, cartOpen:false, sheet:null, form:null }); if (typeof window!=='undefined') window.scrollTo(0,0); };
+  setFilter = (f) => this.setState({ filter:f });
+  setAdminTab = (t) => this.setState({ adminTab:t });
+  toggleCart = () => this.setState(s => ({ cartOpen:!s.cartOpen }));
+  closeCart = () => this.setState({ cartOpen:false });
+  addToCart = (id) => this.setState(s => { const c={...s.cart}; c[id]=(c[id]||0)+1; return { cart:c, cartOpen:true }; });
+  inc = (id) => this.setState(s => { const c={...s.cart}; c[id]=(c[id]||0)+1; return { cart:c }; });
+  dec = (id) => this.setState(s => { const c={...s.cart}; c[id]=(c[id]||0)-1; if(c[id]<=0) delete c[id]; return { cart:c }; });
+  remove = (id) => this.setState(s => { const c={...s.cart}; delete c[id]; return { cart:c }; });
+  openSheet = (w) => this.setState({ sheet:w });
+  closeSheet = () => this.setState({ sheet:null });
+  startAdd = () => this.setState({ formMode:'add', form:{ id:'p-'+Date.now(), name:'', appellation:'', tier:'Village', vintage:2022, type:'Blanc', price:0, stock:0, descriptor:'', desc:'', note:'', image:'' } });
+  startEdit = (id) => { const p=(this.state.products||this.wines).find(x=>x.id===id); this.setState({ formMode:'edit', form:{ ...p } }); };
+  setForm = (k,v) => this.setState(s => ({ form:{ ...s.form, [k]:v } }));
+  cancelForm = () => this.setState({ form:null });
+  saveProduct = () => this.setState(s => { const base=(s.products||this.wines).map(x=>({...x})); const f={ ...s.form, price:Number(s.form.price)||0, stock:parseInt(s.form.stock,10)||0 }; const i=base.findIndex(x=>x.id===f.id); if(i>=0) base[i]=f; else base.push(f); return { products:base, form:null }; });
+  deleteProduct = (id) => this.setState(s => ({ products:(s.products||this.wines).filter(x=>x.id!==id) }));
+  toggleHidden = (id) => this.setState(s => ({ products:(s.products||this.wines).map(p=> p.id===id ? {...p, hidden:!p.hidden} : p) }));
+
+  videoRef = (node) => {
+    if (!node || node.__hooked) return;
+    node.__hooked = true;
+    try { node.muted = true; node.playsInline = true; } catch(_){}
+    const slow = () => { try { node.playbackRate = 0.7; if (!node.__seeked && (node.currentTime||0) < 1) { node.__seeked = true; node.currentTime = 1; } } catch(_){} const p = node.play && node.play(); if (p && p.catch) p.catch(()=>{}); };
+    node.addEventListener('loadedmetadata', slow);
+    node.addEventListener('canplay', slow);
+    node.addEventListener('timeupdate', () => { if (node.duration && node.currentTime / node.duration > 0.68 && !this.state.heroNameVisible) this.setState({ heroNameVisible:true }); });
+    node.addEventListener('ended', () => this.setState({ heroNameVisible:true }));
+    slow();
+  };
+
+  pill(tone){
+    const base = { display:'inline-block', padding:'4px 11px', borderRadius:'999px', fontSize:'11px', fontWeight:700, letterSpacing:'0.05em', textTransform:'uppercase', whiteSpace:'nowrap' };
+    if (tone==='dark') return { ...base, background:'#15171a', color:'#fff' };
+    if (tone==='outline') return { ...base, background:'#fff', color:'#6b6c70', border:'1px solid #cfcabb' };
+    if (tone==='alert') return { ...base, background:'#fff', color:'#15171a', border:'1px solid #15171a' };
+    if (tone==='green') return { ...base, background:'#e6f4ea', color:'#2f7d4f' };
+    if (tone==='amber') return { ...base, background:'#fbf1d6', color:'#946f12' };
+    if (tone==='red') return { ...base, background:'#fbe6e6', color:'#b3261e' };
+    if (tone==='blue') return { ...base, background:'#e6eef8', color:'#2a5d9c' };
+    return { ...base, background:'#ecebe7', color:'#5b5c5f' };
+  }
+
+  renderVals(){
+    const { page, cart, cartOpen, filter, adminTab, heroNameVisible } = this.state;
+
+    const navBase = { appearance:'none', background:'none', border:'none', padding:'6px 0 4px', cursor:'pointer', fontFamily:'inherit', fontSize:'12.5px', fontWeight:600, letterSpacing:'0.12em', textTransform:'uppercase', color:'#6b6c70', borderBottom:'2px solid transparent', whiteSpace:'nowrap', flex:'none' };
+    const navActive = { ...navBase, color:'#15171a', borderBottom:'2px solid #15171a' };
+    const navDefs = [['accueil','Le Domaine'], ['histoire','Notre Histoire'], ['boutique','Les Vins'], ['contact','Contact'], ['admin','Espace Admin']];
+    const nav = navDefs.map(([k,label]) => ({ label, onClick:() => this.go(k), style: page===k ? navActive : navBase }));
+
+    const filterBase = { appearance:'none', padding:'9px 18px', borderRadius:'999px', border:'1px solid #ddd9d1', background:'#fff', color:'#15171a', cursor:'pointer', fontFamily:'inherit', fontSize:'12.5px', fontWeight:600, letterSpacing:'0.08em', textTransform:'uppercase' };
+    const filterActive = { ...filterBase, background:'#15171a', color:'#fff', borderColor:'#15171a' };
+    const filterDefs = [['tous','Tous'], ['blanc','Blancs'], ['rouge','Rouges'], ['effervescent','Effervescents']];
+    const filters = filterDefs.map(([k,label]) => ({ label, onClick:() => this.setFilter(k), style: filter===k ? filterActive : filterBase }));
+
+    const tabBase = { appearance:'none', background:'none', border:'none', borderBottom:'2px solid transparent', padding:'12px 4px', marginBottom:'-1px', cursor:'pointer', fontFamily:'inherit', fontSize:'13.5px', fontWeight:600, color:'#7c7d80', display:'inline-flex', alignItems:'center', gap:'7px', whiteSpace:'nowrap' };
+    const tabActive = { ...tabBase, color:'#15171a', borderBottom:'2px solid #15171a' };
+    const mkTab = ([k,label]) => ({ label, onClick:() => this.setAdminTab(k), style: adminTab===k ? tabActive : tabBase });
+    const adminTabsMain = [['dashboard','Tableau de bord'], ['stock','Stock & cuvées'], ['commandes','Commandes']].map(mkTab);
+    const adminTabsShop = [['produits','Gestion de la boutique']].map(mkTab);
+
+    const products = this.state.products || this.wines;
+    const filtered = products.filter(w => !w.hidden && (filter==='tous' || w.type.toLowerCase()===filter));
+    const winesView = filtered.map((w,i) => {
+      const rev = i % 2 === 1;
+      const bc = this.bottleColors(w.type);
+      return {
+        ...w,
+        capStyle: { width:'36px', height:'26px', background:bc.cap, borderRadius:'2px 2px 0 0' },
+        neckStyle: { width:'36px', height:'90px', background:bc.neck },
+        bodyStyle: { position:'relative', width:'162px', height:'362px', marginTop:'-2px', borderRadius:'18px 18px 10px 10px', overflow:'hidden', boxShadow:'0 28px 44px -20px rgba(0,0,0,0.55)', background:bc.body },
+        hasImage: !!w.image, noImage: !w.image,
+        imageStyle: w.image ? { width:'min(320px,82vw)', height:'640px', backgroundImage:'url("'+w.image+'")', backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'center bottom' } : {},
+        vintageLabel: String(w.vintage),
+        priceLabel: this.fmt(w.price),
+        metaLine: w.tier + ' · ' + w.type,
+        onAdd: () => this.addToCart(w.id),
+        onSheet: () => this.openSheet(w),
+        rowStyle: { display:'flex', alignItems:'center', flexWrap:'wrap', justifyContent:'center', gap:'clamp(24px,5vw,72px)', padding:'48px 0', borderBottom:'1px solid #ece9e2', flexDirection: rev ? 'row-reverse' : 'row' },
+        colStyle: { flex:'1', display:'flex', flexDirection:'column', gap:'18px', alignItems: rev ? 'flex-start' : 'flex-end', textAlign: rev ? 'left' : 'right' }
+      };
+    });
+
+    const featured = [0,5,1].map(i => { const w=products[i]; return { ...w, hasImage:!!w.image, noImage:!w.image, imageStyleSmall: w.image ? { width:'100%', height:'100%', backgroundImage:'url("'+w.image+'")', backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'center' } : {}, vintageLabel:String(w.vintage), priceLabel:this.fmt(w.price), onAdd:()=>this.addToCart(w.id) }; });
+
+    const cartLines = Object.keys(cart).map(id => {
+      const w = products.find(x => x.id===id); const qty = cart[id];
+      return { id, name:w.name, meta:String(w.vintage)+' · '+w.appellation, qty, lineLabel:this.fmt(w.price*qty), thumbStyle: w.image ? { width:'52px', height:'72px', flex:'none', backgroundImage:'url("'+w.image+'")', backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'center' } : { width:'52px', height:'72px', flex:'none', borderRadius:'3px', background:'linear-gradient(135deg,#42454a,#0e0f11)' }, onInc:()=>this.inc(id), onDec:()=>this.dec(id), onRemove:()=>this.remove(id) };
+    });
+    const cartCount = Object.values(cart).reduce((a,b)=>a+b,0);
+    const cartTotalNum = Object.keys(cart).reduce((a,id)=>a + products.find(x=>x.id===id).price*cart[id], 0);
+
+    const stockView = products.map(w => {
+      let label, tone;
+      if (w.stock===0) { label='Rupture'; tone='red'; }
+      else if (w.stock<100) { label='Stock bas'; tone='amber'; }
+      else { label='En stock'; tone='green'; }
+      return { ...w, vintageLabel:String(w.vintage), typeLabel:w.type, stockLabel: w.stock.toLocaleString('fr-FR'), statusLabel:label, statusStyle:this.pill(tone), hidden:!!w.hidden, hideLabel:(w.hidden?'Afficher':'Cacher'), onToggleHide:()=>this.toggleHidden(w.id) };
+    });
+    const lowStock = stockView.filter(w => w.stock<100);
+    const orders = this.orders.map(o => ({ ...o, statusStyle:this.pill(o.tone) }));
+
+    const deliveryDefs = [['retrait','Retrait au domaine','Meursault · sur rendez-vous',0],['standard','Livraison standard','3 à 5 jours ouvrés',9.9],['express','Livraison express','24 à 48 h',19.9]];
+    const delivery = this.state.delivery || 'retrait';
+    const deliveryCost = (deliveryDefs.find(x=>x[0]===delivery)||[0,0,0,0])[3];
+    const deliveryOptions = deliveryDefs.map(([k,label,sub,cost])=>({ label, sub, costLabel: cost===0?'Offert':this.fmt(cost), onClick:()=>this.setState({delivery:k}), style:{ display:'flex', justifyContent:'space-between', alignItems:'center', gap:'12px', padding:'13px 15px', border:'1px solid '+(delivery===k?'#15171a':'#ddd9d1'), borderRadius:'10px', cursor:'pointer', background:(delivery===k?'#fbfaf7':'#fff') } }));
+    const orderTotalNum = cartTotalNum + deliveryCost;
+
+    const productsAdmin = products.map(p => ({ id:p.id, name:p.name, meta:p.appellation+' · '+String(p.vintage), priceLabel:this.fmt(p.price), stockLabel:String(p.stock), typeLabel:p.type, cardImageStyle: p.image ? { width:'100%', height:'190px', backgroundImage:'url("'+p.image+'")', backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'center' } : { width:'100%', height:'190px' }, onEdit:()=>this.startEdit(p.id), onDelete:()=>this.deleteProduct(p.id) }));
+
+    const sw = this.state.sheet; let sheetView = null;
+    if (sw) {
+      const cepage = sw.id==='aligote' ? 'Aligoté' : sw.type==='Rouge' ? 'Pinot Noir' : sw.type==='Effervescent' ? 'Chardonnay · Pinot Noir' : 'Chardonnay';
+      const service = sw.type==='Rouge' ? '15 – 16 °C' : '8 – 10 °C';
+      const garde = sw.tier==='1ᵉʳ Cru' ? '8 à 12 ans' : sw.tier==='Régionale' ? '2 à 4 ans' : sw.tier==='Méthode traditionnelle' ? 'à boire jeune' : '5 à 8 ans';
+      sheetView = { name:sw.name, meta:sw.appellation+' · '+String(sw.vintage), descriptor:sw.descriptor, desc:sw.desc||sw.note||'', priceLabel:this.fmt(sw.price), type:sw.type, cepage, service, garde, hasImage:!!sw.image, noImage:!sw.image, imageStyle: sw.image ? { width:'190px', height:'430px', backgroundImage:'url("'+sw.image+'")', backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'center' } : {}, onAdd:()=>{ this.addToCart(sw.id); this.closeSheet(); } };
+    }
+
+    const ff = this.state.form; let formView = null;
+    if (ff) {
+      formView = { title: this.state.formMode==='add' ? 'Nouveau produit' : 'Modifier le produit', name:ff.name, appellation:ff.appellation, vintage:ff.vintage, price:ff.price, stock:ff.stock, type:ff.type, tier:ff.tier, descriptor:ff.descriptor, desc:ff.desc||'', onName:e=>this.setForm('name',e.target.value), onAppellation:e=>this.setForm('appellation',e.target.value), onVintage:e=>this.setForm('vintage',e.target.value), onPrice:e=>this.setForm('price',e.target.value), onStock:e=>this.setForm('stock',e.target.value), onType:e=>this.setForm('type',e.target.value), onTier:e=>this.setForm('tier',e.target.value), onDescriptor:e=>this.setForm('descriptor',e.target.value), onDesc:e=>this.setForm('desc',e.target.value), hasImage:!!ff.image, previewStyle: ff.image ? { width:'72px', height:'124px', flex:'none', backgroundImage:'url("'+ff.image+'")', backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'center' } : {}, onImage:e=>{ const f=e.target.files&&e.target.files[0]; if(!f)return; const r=new FileReader(); r.onload=()=>this.setForm('image',r.result); r.readAsDataURL(f); }, removeImage:()=>this.setForm('image',''), onSave:this.saveProduct, onCancel:this.cancelForm };
+    }
+
+    return {
+      isAccueil: page==='accueil', isHistoire: page==='histoire', isBoutique: page==='boutique', isAdmin: page==='admin',
+      showFooter: page!=='admin',
+      nav, filters, adminTabsMain, adminTabsShop,
+      tDash:mkTab(['dashboard','Tableau de bord']), tStock:mkTab(['stock','Stock & cuvées']), tCmd:mkTab(['commandes','Commandes']), tShop:mkTab(['produits','Gestion de la boutique']),
+      isContact: page==='contact', isProduits: adminTab==='produits',
+      isDash: adminTab==='dashboard', isStock: adminTab==='stock', isCmd: adminTab==='commandes',
+      goContact:()=>this.go('contact'), productsAdmin, startAdd:this.startAdd,
+      sheetOpen:!!sw, sheet:sheetView, closeSheet:this.closeSheet,
+      formOpen:!!ff, form:formView,
+      adminLogin: page==='admin' && !this.state.adminAuth, doLogin:()=>this.setState({ adminAuth:true }),
+      isCheckout: page==='checkout',
+      coPay: !this.state.checkoutDone && cartCount>0,
+      coEmpty: !this.state.checkoutDone && cartCount===0,
+      coDone: this.state.checkoutDone,
+      orderRef: this.state.orderRef, paidTotal: this.state.paidTotal,
+      goCheckout: () => { this.setState({ page:'checkout', cartOpen:false, checkoutDone:false, sheet:null, form:null }); if(typeof window!=='undefined') window.scrollTo(0,0); },
+      payNow: () => this.setState({ checkoutDone:true, orderRef:'#'+(10430+Math.floor(Math.random()*900)), paidTotal:this.fmt(orderTotalNum), cart:{} }),
+      deliveryOptions, deliveryCostLabel: (deliveryCost===0?'Offert':this.fmt(deliveryCost)), orderTotal:this.fmt(orderTotalNum),
+      goAccueil:()=>this.go('accueil'), goHistoire:()=>this.go('histoire'), goBoutique:()=>this.go('boutique'), goAdmin:()=>this.go('admin'),
+      goBoutiqueFromCart:()=>{ this.go('boutique'); },
+      toggleCart:this.toggleCart, closeCart:this.closeCart,
+      cartOpen, cartCount, cartLines, cartTotal:this.fmt(cartTotalNum),
+      hasItems: cartCount>0, cartEmpty: cartCount===0,
+      winesView, featured, stockView, lowStock, orders,
+      generations: this.generations.map((g,i)=>({ ...g, index:i, style:{ position:'relative', display:'grid', gridTemplateColumns:'88px 1fr', gap:'36px', paddingBottom:'54px', transition:'opacity .7s ease, transform .7s cubic-bezier(.22,.61,.36,1)', opacity:(this.state.revealed && this.state.revealed[i]) ? 1 : 0, transform:(this.state.revealed && this.state.revealed[i]) ? 'none' : 'translateY(30px)' } })),
+      kpis: this.kpis,
+      stats: [ {value:'1843', label:'Année de fondation'}, {value:'12 ha', label:'de vignes en coteaux'}, {value:'6', label:'appellations'}, {value:'3ᵉ', label:'génération'} ],
+      videoRef:this.videoRef,
+      heroNameStyle: { position:'absolute', inset:'0', display:'flex', alignItems:'center', justifyContent:'center', opacity: heroNameVisible ? 1 : 0, transition:'opacity 1.6s ease', pointerEvents:'none' }
+    };
+  }
+}
+</script>
+</body>
+</html>
